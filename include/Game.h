@@ -6,7 +6,7 @@
 #include "Debug.h"
 #include "Clock.h"
 
-#include "ComponentArray.h"
+#include <ComponentManager.h>
 
 class Game
 {
