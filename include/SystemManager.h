@@ -16,9 +16,9 @@ public:
 	template<typename T>
 	void setSignature(Signature t_signature);
 
-	void EntityDestroyed(Entity t_entity);
+	void entityDestroyed(Entity t_entity);
 
-	void EntitySignatureChanged(Entity t_entity, Signature t_entitySignature);
+	void entitySignatureChanged(Entity t_entity, Signature t_entitySignature);
 
 private:
 	// Map typeID string to a bitfield signature
@@ -54,7 +54,7 @@ inline void SystemManager::setSignature(Signature t_signature)
 
 ////////////////////////////////////////////////////////////
 
-void SystemManager::EntityDestroyed(Entity t_entity)
+void SystemManager::entityDestroyed(Entity t_entity)
 {
 	// Loop through systems, and erase entity from each (if exists)
 	for (auto const& pair : m_systems)
@@ -63,7 +63,7 @@ void SystemManager::EntityDestroyed(Entity t_entity)
 
 ////////////////////////////////////////////////////////////
 
-inline void SystemManager::EntitySignatureChanged(Entity t_entity, Signature t_entitySignature)
+inline void SystemManager::entitySignatureChanged(Entity t_entity, Signature t_entitySignature)
 {
 	const char* type;
 	System* system;

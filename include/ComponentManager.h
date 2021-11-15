@@ -9,7 +9,7 @@ class ComponentManager
 {
 public:
 	template<typename T>
-	void RegisterComponent();
+	void registerComponent();
 
 	template<typename T>
 	Component getComponentType();
@@ -46,16 +46,16 @@ private:
 };
 
 template<typename T>
-inline void ComponentManager::RegisterComponent()
+inline void ComponentManager::registerComponent()
 {
 	const char* typeName = typeid(T).name();
 	assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Component already registered.");
 
 	// Add component type to type map
-	m_componentTypes.insert({ typeName, m_nextComponentID++ });
+	m_componentTypes[typeName] = m_nextComponentID++;
 
 	// Allocate a new component array and add to the array map
-	m_componentArrays.insert({ typeName, new ComponentArray<T>() });
+	m_componentArrays[typeName] = new ComponentArray<T>();
 }
 
 ///////////////////////////////////////////////////////////////
