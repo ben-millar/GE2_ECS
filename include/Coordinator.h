@@ -8,7 +8,17 @@
 class Coordinator
 {
 public:
-	void Init();
+
+	static Coordinator* getInstance()
+	{
+		static Coordinator instance;
+		return &instance;
+	}
+
+	Coordinator(Coordinator const&) = delete;
+	void operator=(Coordinator const&) = delete;
+
+	void init();
 
 	// Entity
 	Entity createEntity();
@@ -39,10 +49,21 @@ public:
 	void setSystemSignature(Signature t_signature);
 
 private:
+	Coordinator();
+
 	EntityManager* m_entityManager;
 	ComponentManager* m_componentManager;
 	SystemManager* m_systemManager;
 };
+
+///////////////////////////////////////////////////////////////
+
+inline void Coordinator::init()
+{
+	m_entityManager = EntityManager::getInstance();
+	m_componentManager = new ComponentManager();
+	m_systemManager = new SystemManager();
+}
 
 ///////////////////////////////////////////////////////////////
 

@@ -11,6 +11,23 @@ void Game::run()
         exit(1);
     }
 
+    auto coordinator = Coordinator::getInstance();
+    coordinator->init();
+
+    coordinator->registerComponent<Gravity>();
+    coordinator->registerComponent<RigidBody>();
+    coordinator->registerComponent<Transform>();
+
+    auto physicsSystem = coordinator->registerSystem<PhysicsSystem>();
+
+    Signature signature;
+    signature.set(coordinator->getComponentType<Gravity>());
+    signature.set(coordinator->getComponentType<RigidBody>());
+    signature.set(coordinator->getComponentType<Transform>());
+    coordinator->setSystemSignature<PhysicsSystem>(signature);
+
+    std::vector<Entity> entities(MAX_ENTITIES);
+
     Clock clock;
     Time lag(0U);
     const Time MS_PER_UPDATE = 1000U / 60U;

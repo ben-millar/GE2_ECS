@@ -3,6 +3,7 @@
 
 #include <unordered_set>
 
+#include <Coordinator.h>
 #include <Entity.h>
 
 class System

@@ -6,7 +6,8 @@
 #include "Debug.h"
 #include "Clock.h"
 
-#include <ComponentManager.h>
+#include <Coordinator.h>
+#include <PhysicsSystem.h>
 
 class Game
 {

@@ -18,6 +18,11 @@ public:
 	{
 		return Vector2(this->x + rhs.x, this->y + rhs.y);
 	}
+
+	Vector2 operator*(const float& rhs)
+	{
+		return Vector2(this->x * rhs, this->y * rhs);
+	}
 };
 
 #endif
