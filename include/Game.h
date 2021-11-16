@@ -7,16 +7,26 @@
 #include "Clock.h"
 
 #include <Coordinator.h>
+#include <AISystem.h>
+#include <ControlSystem.h>
+#include <HealthSystem.h>
 #include <PhysicsSystem.h>
+#include <RenderSystem.h>
 
 class Game
 {
 private:
-    SDL_Window* m_window{ nullptr };
-    SDL_Renderer* m_renderer{ nullptr };
-    bool m_isRunning{ true };
+    SDL_Window* _window{ nullptr };
+    SDL_Renderer* _renderer{ nullptr };
+    bool _isRunning{ true };
 
-    PhysicsSystem* m_physicsSystem;
+    AISystem* _aiSystem;
+    ControlSystem* _controlSystem;
+    HealthSystem* _healthSystem;
+    PhysicsSystem* _physicsSystem;
+    RenderSystem* _renderSystem;
+
+    Entity _player, _villain, _cortana, _dinkyDi;
 
 public:
     Game() = default;
@@ -28,5 +38,5 @@ public:
     void render();
     void cleanUp();
 
-    inline bool isRunning() { return m_isRunning; }
+    inline bool isRunning() { return _isRunning; }
 };

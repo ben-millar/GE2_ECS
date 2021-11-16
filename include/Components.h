@@ -40,4 +40,9 @@ struct Input
 	Vector2 input;
 };
 
+struct Sprite
+{
+	// :)
+};
+
 #endif
