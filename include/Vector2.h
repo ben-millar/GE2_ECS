@@ -14,10 +14,14 @@ public:
 		return *this;
 	}
 
+	////////////////////////////////////////////////////////////
+
 	Vector2 operator+(const Vector2& rhs)
 	{
 		return Vector2(this->x + rhs.x, this->y + rhs.y);
 	}
+
+	////////////////////////////////////////////////////////////
 
 	Vector2 operator*(const float& rhs)
 	{

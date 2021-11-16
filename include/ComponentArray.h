@@ -4,6 +4,7 @@
 #include <array>
 #include <assert.h>
 #include <unordered_map>
+
 #include <Entity.h>
 
 template<typename T>

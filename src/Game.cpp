@@ -1,4 +1,4 @@
-#include "../include/Game.h"
+#include <Game.h>
 #include <stdio.h>
 
 void Game::run()

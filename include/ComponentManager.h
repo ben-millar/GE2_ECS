@@ -2,6 +2,7 @@
 #define COMPONENT_MANAGER_H
 
 #include <assert.h>
+
 #include <Components.h>
 #include <ComponentArray.h>
 

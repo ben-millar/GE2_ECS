@@ -12,9 +12,9 @@ const uint8_t MAX_COMPONENTS = std::numeric_limits<uint8_t>::max();
 
 using Signature = std::bitset<MAX_COMPONENTS>;
 
-struct Gravity
+struct Health
 {
-	Vector2 force;
+	int health;
 };
 
 struct RigidBody
@@ -23,11 +23,21 @@ struct RigidBody
 	Vector2 acceleration;
 };
 
+struct Gravity
+{
+	Vector2 force;
+};
+
 struct Transform
 {
 	Vector2 position;
 	Vector2 rotation;
 	Vector2 scale;
+};
+
+struct Input
+{
+	Vector2 input;
 };
 
 #endif

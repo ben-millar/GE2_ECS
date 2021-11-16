@@ -21,12 +21,12 @@ public:
 
 	void init();
 
-	// Entity
+	//////////Entity//////////
 	Entity createEntity();
 
 	void destroyEntity(Entity t_entity);
 
-	// Component
+	////////Component/////////
 	template<typename T>
 	void registerComponent();
 
@@ -42,7 +42,7 @@ public:
 	template<typename T>
 	Component getComponentType();
 
-	// System
+	//////////System//////////
 	template<typename T>
 	T* registerSystem();
 
@@ -78,7 +78,7 @@ inline void Coordinator::destroyEntity(Entity t_entity)
 {
 	m_entityManager->destroyEntity(t_entity);
 	m_componentManager->entityDestroyed(t_entity);
-	//m_systemManager->entityDestroyed(t_entity);
+	m_systemManager->entityDestroyed(t_entity);
 }
 
 ///////////////////////////////////////////////////////////////
