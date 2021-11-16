@@ -8,6 +8,7 @@
 class Coordinator
 {
 public:
+	Coordinator() = default;
 
 	static Coordinator* getInstance()
 	{
@@ -49,7 +50,6 @@ public:
 	void setSystemSignature(Signature t_signature);
 
 private:
-	Coordinator();
 
 	EntityManager* m_entityManager;
 	ComponentManager* m_componentManager;
@@ -74,11 +74,11 @@ inline Entity Coordinator::createEntity()
 
 ///////////////////////////////////////////////////////////////
 
-void Coordinator::destroyEntity(Entity t_entity)
+inline void Coordinator::destroyEntity(Entity t_entity)
 {
 	m_entityManager->destroyEntity(t_entity);
 	m_componentManager->entityDestroyed(t_entity);
-	m_systemManager->entityDestroyed(t_entity);
+	//m_systemManager->entityDestroyed(t_entity);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -104,10 +104,10 @@ inline void Coordinator::addComponent(Entity t_entity, T t_component)
 	signature.set(m_componentManager->getComponentType<T>(), true);
 
 	// Reassign updated signature
-	m_entityManager->setSignature(entity, signature);
+	m_entityManager->setSignature(t_entity, signature);
 
 	// Inform the system manager so systems can subscribe/unsub to entity
-	m_systemManager->entitySignatureChanged(entity, signature);
+	m_systemManager->entitySignatureChanged(t_entity, signature);
 }
 
 ///////////////////////////////////////////////////////////////
@@ -115,7 +115,7 @@ inline void Coordinator::addComponent(Entity t_entity, T t_component)
 template<typename T>
 inline void Coordinator::removeComponent(Entity t_entity)
 {
-	m_componentManager->removeComponent<T>(entity);
+	m_componentManager->removeComponent<T>(t_entity);
 
 	// Get original signature
 	Signature signature = m_entityManager->getSignature(t_entity);
@@ -124,10 +124,10 @@ inline void Coordinator::removeComponent(Entity t_entity)
 	signature.set(m_componentManager->getComponentType<T>(), false);
 
 	// Reassign updated signature
-	m_entityManager->setSignature(entity, signature);
+	m_entityManager->setSignature(t_entity, signature);
 
 	// Inform the system manager so systems can subscribe/unsub to entity
-	m_systemManager->entitySignatureChanged(entity, signature);
+	m_systemManager->entitySignatureChanged(t_entity, signature);
 }
 
 ///////////////////////////////////////////////////////////////

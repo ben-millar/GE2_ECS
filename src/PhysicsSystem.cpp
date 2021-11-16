@@ -1,7 +1,7 @@
 #include "PhysicsSystem.h"
 #include "..\include\PhysicsSystem.h"
 
-void PhysicsSystem::Update(Time t_dT)
+void PhysicsSystem::update(Time t_dT)
 {
 	for (auto const& entity : m_entities)
 	{

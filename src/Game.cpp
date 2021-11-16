@@ -11,14 +11,14 @@ void Game::run()
         exit(1);
     }
 
-    auto coordinator = Coordinator::getInstance();
+    Coordinator* coordinator = Coordinator::getInstance();
     coordinator->init();
 
     coordinator->registerComponent<Gravity>();
     coordinator->registerComponent<RigidBody>();
     coordinator->registerComponent<Transform>();
 
-    auto physicsSystem = coordinator->registerSystem<PhysicsSystem>();
+    m_physicsSystem = coordinator->registerSystem<PhysicsSystem>();
 
     Signature signature;
     signature.set(coordinator->getComponentType<Gravity>());
@@ -27,6 +27,29 @@ void Game::run()
     coordinator->setSystemSignature<PhysicsSystem>(signature);
 
     std::vector<Entity> entities(MAX_ENTITIES);
+
+    for (auto& e : entities)
+    {
+        e = coordinator->createEntity();
+
+        // Add gravity component
+        coordinator->addComponent(e, Gravity{ 
+                Vector2(0.0f, 2.0f) 
+            });
+
+        // Add rigidbody component
+        coordinator->addComponent(e, RigidBody{
+                .velocity = Vector2(0.0f,0.0f),
+                .acceleration = Vector2(4.0f,0.0f)            
+            });
+
+        // Add transform component
+        coordinator->addComponent(e, Transform{
+                .position = Vector2(0.0f,0.0f),
+                .rotation = Vector2(0.0f,0.0f),
+                .scale = Vector2(1.0f, 1.0f)
+            });
+    }
 
     Clock clock;
     Time lag(0U);
@@ -66,6 +89,9 @@ void Game::processEvents()
 
 void Game::update(Time t_dT)
 {
+    m_physicsSystem->update(t_dT);
+
+
 }
 
 ////////////////////////////////////////////////////////////

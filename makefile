@@ -52,3 +52,4 @@ build: $(OBJ_TARGET)
 # Change the variable depending on if you used a nested folder or not
 clean:
 	rm -f $(OBJ_FOLDER)
+	make

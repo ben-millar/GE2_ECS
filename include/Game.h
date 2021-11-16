@@ -16,6 +16,8 @@ private:
     SDL_Renderer* m_renderer{ nullptr };
     bool m_isRunning{ true };
 
+    PhysicsSystem* m_physicsSystem;
+
 public:
     Game() = default;
     ~Game() = default;

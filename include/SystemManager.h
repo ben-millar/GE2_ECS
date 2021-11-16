@@ -34,9 +34,9 @@ template<typename T>
 inline T* SystemManager::registerSystem()
 {
 	const char* typeName = typeid(T).name();
-	assert(m_systems.find(typeName) != m_systems.end() && ("System '" + typeName + "' already registered."));
+	assert(m_systems.find(typeName) == m_systems.end() && ("System already registered."));
 
-	auto sys = new System<T>();
+	auto sys = new T();
 	m_systems[typeName] = sys;
 	return sys;
 }
@@ -47,14 +47,14 @@ template<typename T>
 inline void SystemManager::setSignature(Signature t_signature)
 {
 	const char* typeName = typeid(T).name();
-	assert(m_systems.find(typeName) != m_systems.end() && ("No system of type '" + typeName + "' has been registered."));
+	assert(m_systems.find(typeName) != m_systems.end() && ("No system of type has been registered."));
 
 	m_signatures[typeName] = t_signature;
 }
 
 ////////////////////////////////////////////////////////////
 
-void SystemManager::entityDestroyed(Entity t_entity)
+inline void SystemManager::entityDestroyed(Entity t_entity)
 {
 	// Loop through systems, and erase entity from each (if exists)
 	for (auto const& pair : m_systems)

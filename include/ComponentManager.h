@@ -49,7 +49,7 @@ template<typename T>
 inline void ComponentManager::registerComponent()
 {
 	const char* typeName = typeid(T).name();
-	assert(mComponentTypes.find(typeName) == mComponentTypes.end() && "Component already registered.");
+	assert(m_componentTypes.find(typeName) == m_componentTypes.end() && "Component already registered.");
 
 	// Add component type to type map
 	m_componentTypes[typeName] = m_nextComponentID++;

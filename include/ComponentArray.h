@@ -12,7 +12,7 @@ class ComponentArray
 public:
 	void insert(Entity t_entity, T t_component);
 	void remove(Entity t_entity);
-	void get(Entity t_entity);
+	T& get(Entity t_entity);
 	void entityDestroyed(Entity t_entity);
 
 	// Overloaded [] get operator
@@ -65,7 +65,7 @@ inline void ComponentArray<T>::remove(Entity t_entity)
 ///////////////////////////////////////////////////////////////
 
 template<typename T>
-inline void ComponentArray<T>::get(Entity t_entity)
+inline T& ComponentArray<T>::get(Entity t_entity)
 {
 	assert(m_entityToIndex.find(t_entity) != m_entityToIndex.end() && "Retrieving non-existent component.");
 
