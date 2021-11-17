@@ -1,6 +1,8 @@
 #ifndef COORDINATOR_H
 #define COORDINATOR_H
 
+#include <Debug.h>
+
 #include <EntityManager.h>
 #include <ComponentManager.h>
 #include <SystemManager.h>
@@ -24,11 +26,17 @@ public:
 	//////////Entity//////////
 	Entity createEntity();
 
+	template<typename ...Args>
+	Entity createEntity(Args... t_args);
+
 	void destroyEntity(Entity t_entity);
 
 	////////Component/////////
 	template<typename T>
 	void registerComponent();
+
+	template<typename T, typename ...Args>
+	void addComponent(Entity t_entity, T t_arg, Args... t_args);
 
 	template<typename T>
 	void addComponent(Entity t_entity, T t_component);
@@ -74,6 +82,18 @@ inline Entity Coordinator::createEntity()
 
 ///////////////////////////////////////////////////////////////
 
+template<typename ...Args>
+inline Entity Coordinator::createEntity(Args... t_args)
+{
+	Entity e = createEntity();
+	
+	addComponent(e, t_args...);
+
+	return e;
+}
+
+///////////////////////////////////////////////////////////////
+
 inline void Coordinator::destroyEntity(Entity t_entity)
 {
 	m_entityManager->destroyEntity(t_entity);
@@ -91,9 +111,21 @@ inline void Coordinator::registerComponent()
 
 ///////////////////////////////////////////////////////////////
 
+template<typename T, typename ...Args>
+inline void Coordinator::addComponent(Entity t_entity, T t_arg, Args ... t_args)
+{
+	// Recursively call addComponent til we've run through our packed variadic args
+	addComponent(t_entity, t_arg);
+	addComponent(t_entity, t_args...);
+}
+
+///////////////////////////////////////////////////////////////
+
 template<typename T>
 inline void Coordinator::addComponent(Entity t_entity, T t_component)
 {
+	DEBUG_MSG("Adding component: " << typeid(T).name() << " to entity: " << (int)t_entity);
+
 	// Add new component to our entity
 	m_componentManager->addComponent<T>(t_entity, t_component);
 

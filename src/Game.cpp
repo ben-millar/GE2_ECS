@@ -52,39 +52,10 @@ void Game::run()
     renderSignature.set(coordinator->getComponentType<Sprite>());
     coordinator->setSystemSignature<RenderSystem>(renderSignature);
 
-    _player = coordinator->createEntity();
-    _villain = coordinator->createEntity();
-    _cortana = coordinator->createEntity();
-    _dinkyDi = coordinator->createEntity();
-
-    // Add gravity component
-    coordinator->addComponent(_player, Gravity{
-            Vector2(0.0f, 2.0f)
-        });
-
-    // Add rigidbody component
-    coordinator->addComponent(_player, RigidBody{
-            .velocity = Vector2(0.0f,0.0f),
-            .acceleration = Vector2(4.0f,0.0f)
-        });
-
-    // Add transform component
-    coordinator->addComponent(_player, Transform{
-            .position = Vector2(0.0f,0.0f),
-            .rotation = Vector2(0.0f,0.0f),
-            .scale = Vector2(1.0f, 1.0f)
-        });
-
-    // Add health component
-    coordinator->addComponent(_player, Health{
-            .health = 10
-        });
-
-    // Add input component
-    coordinator->addComponent(_player, Input());
-
-    // Add sprite component
-    coordinator->addComponent(_player, Sprite());
+    _player = coordinator->createEntity(RigidBody(), Transform(), Gravity(), Health(), Input(), Sprite());
+    _villain = coordinator->createEntity(RigidBody(), Transform(), Gravity(), Health(), Sprite());
+    _cortana = coordinator->createEntity(RigidBody(), Transform(), Gravity(), Health(), Sprite());
+    _dinkyDi = coordinator->createEntity(RigidBody(), Transform(), Gravity(), Sprite());
 
     Clock clock;
     Time lag(0U);
